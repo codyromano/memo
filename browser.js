@@ -5,7 +5,7 @@
 	slideshowIndex, 
 	featuredImage, 
 	allMedia = exports.allMedia,
-	mediaURIPrefix = 'media.php?fileName=', header1, header2,
+	mediaURIPrefix = getMediaURIPrefix(), header1, header2,
 	loader, status, hideStatusTimeout;
 
 	// Extract just the date from the "humanTime" string
@@ -16,6 +16,15 @@
 	header2 = document.querySelector('h2');
 	status = document.querySelector('#status');
 	loader = document.querySelector('#loader');
+
+	function getBaseDomain () {
+		return document.domain === 'codyromano.com' ? 
+			'' : 'http://www.codyromano.com/memo/';
+	}
+
+	function getMediaURIPrefix () {
+		return getBaseDomain() + 'media.php?fileName=';
+	}
 
 	function updateStatus (msg) {
 		if (typeof hideStatusTimeout === 'number') {
@@ -85,9 +94,6 @@
 			audio.play();
 			return;
 		}
-
-		//header2.innerHTML = relatedImages.length + ' related ' +
-		//	 ((relatedImages.length === 1) ? 'image' : 'images');
 
 		relatedImages = sortRelatedImagesByTime(currentAudio, relatedImages);
 		srcArray = relatedImages.map(function (image) {
@@ -172,7 +178,7 @@
 
 	function getMediaRecords (cb) {
 		var request = new XMLHttpRequest(),
-		endpoint = 'dump_json.php',
+		endpoint = getBaseDomain() + 'dump_json.php',
 		tags = getURLParameter('tags'); 
 
 		if (tags) {
