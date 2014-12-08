@@ -1,0 +1,40 @@
+body {
+	text-align: center;
+	padding-top: 2.5rem;
+	font-family: Arial;
+}
+
+fieldset {
+	border: none;
+}
+
+input, button {
+	font-size: 1.15rem;
+	padding: .15rem .5rem;
+}
+
+fieldset:not(:first-of-type) {
+	margin: 1.5rem 0;
+}
+
+legend {
+	font-weight: bold;
+}
+
+button {
+	margin-top: 2rem;
+}
+
+.hidden {
+	display: none;
+}
+
+progress {
+	width: 100%; 
+}
+
+#output {
+	font-weight: bold;
+	color: green;
+	line-height: 500%; 
+}
