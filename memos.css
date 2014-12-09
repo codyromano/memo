@@ -11,12 +11,14 @@ header {
 	position: fixed; 
 	top: 0;
 	left: 0;
+	z-index: 3; 
 }
 
 #loader {
 	position: fixed;
 	top: 50%;
 	left: 50%;
+	z-index: 1; 
 
 	background-image: url(http://www.apps.oas.org/oasmeetings/images/loading.gif);
 	background-size: contain;
@@ -24,6 +26,7 @@ header {
 	width: 3.5rem;
 	height: 3.5rem;
 	opacity: 1;
+	opacity: 0; 
 }
 
 #loader, #status {
@@ -48,6 +51,15 @@ h1 {
 	top: 10%;
 	left: 5%;
 	font-size: 1.15rem;
+}
+
+#featuredAudio {
+	position: fixed;
+	top: 1%; 
+	right: 5%;
+	display: block;
+	height: 2.5rem;
+	z-index: 4;
 }
 
 h2 {
@@ -77,17 +89,24 @@ header * {
 }
 
 #featuredImage {
+	position: relative;
+	z-index: 2; 
+
+	max-width: 100%; 
+	/*
 	width: 100%; 
 	height: 100%; 
 	background-size: contain;
 	background-position: center; 
 	background-repeat: no-repeat; 
+	*/
 
+	/*
 	opacity: 1; 
 	transition: all ease 2s;
 	-webkit-transition: all ease 2s;
 	-moz-transition: all ease 2s;
-
+	*/
 	margin: 0 auto;
 }
 
