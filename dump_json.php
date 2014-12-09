@@ -1,5 +1,6 @@
 <?php
 require 'stdlib.php';
+header('Access-Control-Allow-Origin: *');  
 
 function getFiles ($dirName) {
 	$contents = scandir($dirName); 
