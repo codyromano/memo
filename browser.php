@@ -11,11 +11,15 @@
 	<h2></h2>
 </header>
 
+<audio id="featuredAudio" controls autoplay></audio>
 <div id="loader"></div>
 <div id="status"></div>
 
-<div id="featuredImage"></div>
-<script src="browser.js"></script>
+<img id="featuredImage"/>
+
+<script src="javascript/modules/Dispatcher.js"></script>
+<script src="javascript/modules/ImageGallery.js"></script>
+<script src="index.js"></script>
 
 </body>
 </html>
