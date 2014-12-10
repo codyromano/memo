@@ -1,0 +1,4 @@
+RewriteEngine On    # Turn on the rewriting engine
+#RewriteRule ^(.+) /memo/browser.php [R]
+RewriteRule    ^uploads/(.+)/?$    media.php?fileName=$1    [NC,L]
+RewriteRule    ^about/(.+)/?$    browser.php?tags=$1    [NC,L]

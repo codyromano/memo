@@ -18,8 +18,18 @@
 		image.src = src; 
 	};
 
+	ImageGallery.prototype.resetImages = function () {
+		this.images = []; 
+	};
+
 	ImageGallery.prototype.addImage = function (src) {
 		var _ImageGallery = this; 
+
+		if (this.images.indexOf(src) > -1) {
+			console.warn('Image ', src, ' already added to slideshow');
+			return false; 
+		}
+
 		this.preloadImage(src, function () {
 			_ImageGallery.images.push(src); 
 		});
@@ -45,7 +55,7 @@
 
 		if (typeof this.debugStats.timeLastImageShown === 'number') {
 			timeDiff = new Date().getTime() - this.debugStats.timeLastImageShown;
-			console.log('td: ', timeDiff, ' src: ', nextImage); 
+			//console.log('td: ', timeDiff, ' src: ', nextImage); 
 		}
 
 		this.debugStats.timeLastImageShown = new Date().getTime(); 
@@ -82,10 +92,10 @@
 	};
 
 	ImageGallery.prototype.showImage = function (src, callback) {
+		console.log('showing ', src);
 		callback = typeof callback === 'function' ? callback : function () {};
-
-		this.el.onload = callback;
-		this.el.src = src; 
+		this.el.style['background-image'] = "url('" + src + "')";
+		callback();
 	};
 
   exports.ImageGallery = ImageGallery; 

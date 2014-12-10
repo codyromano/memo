@@ -3,14 +3,20 @@
 
 	var dateRegex, 
 	slideshowIndex,  
-	featuredAudio = el('#featuredAudio'),
 	allMedia = exports.allMedia,
+	featuredAudio,
 	mediaURIPrefix = getMediaURIPrefix(), 
 	header1, 
 	header2,
 	loader, 
 	status, 
-	hideStatusTimeout;
+	hideStatusTimeout,
+	imageGallery;
+
+	// Start a slideshow of related images
+	imageGallery = new ImageGallery(); 
+	imageGallery.el = el('#featuredImage'); 
+	imageGallery.durationPerImage = 2000; 
 
 	// Extract just the date from the "humanTime" string
 	// in the server's response 
@@ -20,11 +26,17 @@
 	header2 = el('h2');
 	status = el('#status');
 	loader = el('#loader');
+	featuredAudio = el('#featuredAudio');
+	featuredAudio.volume = 0; 
 
 	function init () {
 		getMediaRecords(function (media) {
 			var audio = media.filter(isAudio),
 			images = media.filter(isImage);
+
+			Dispatcher.listen('showedFirstImage', function () {
+				loader.classList.add('hidden');
+			});
 
 			featuredAudio.addEventListener('error', function (e) {
 				showAudioErrorMessage(e);
@@ -51,18 +63,18 @@
 		http://stackoverflow.com/questions/13614803/how-to-check-if-html5-audio-has-reached-different-errors */
 		 switch (e.target.error.code) {
 		   case e.target.error.MEDIA_ERR_NETWORK:
-		     alert('A network error caused the audio download to fail.');
+		     console.error('A network error caused the audio download to fail.');
 		     break;
 		   case e.target.error.MEDIA_ERR_DECODE:
-		     alert('The audio playback was aborted due to a corruption problem or ' +
+		     console.error('The audio playback was aborted due to a corruption problem or ' +
 		     ' because the video used features your browser did not support.');
 		     break;
 		   case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
-		     alert('Sorry, the audio could not be loaded, either because the server or ' + 
+		     console.error('Sorry, the audio could not be loaded, either because the server or ' + 
 		     	'network failed or because the format is not supported.');
 		     break;
 		   default:
-		     alert('Sorry, an unknown audio-related error occurred.');
+		     console.error('Sorry, an unknown audio-related error occurred.');
 		     break;
 		 }
 	}
@@ -86,8 +98,7 @@
 		relatedImages, 
 		sharesTagFilter, 
 		srcArray,
-		audio,
-		imageGallery;
+		audio;
 
 		if (!(currentAudio = audioFiles[0])) {
 			console.log('No more audio');
@@ -99,17 +110,12 @@
 		featuredAudio.src = mediaURIPrefix + currentAudio.basename;
 		//featuredAudio.play();
 
-		console.log('changed audio to: ', featuredAudio.src); 
-
 		header1.innerHTML = currentAudio.humanTime; 
 
 		sharesTagFilter = hasAtLeastOneTag.bind(null, currentAudio.tags);
 		relatedImages = imageFiles.filter(sharesTagFilter);
 
-		// Display related images 
-		imageGallery = new ImageGallery(); 
-		imageGallery.el = el('#featuredImage'); 
-		imageGallery.durationPerImage = 5000; 
+		imageGallery.resetImages();
 
 		relatedImages.forEach(function (image) {
 			imageGallery.addImage(mediaURIPrefix + image.basename); 
@@ -141,13 +147,33 @@
 		audio.src = src;  
 	}
 
+	function getTagsInURL () {
+		var result = [],
+		url = window.location.href,
+		urlParts, startPos, i;
+
+		if (url[url.length - 1] === '/') {
+			url = url.slice(0, -1);
+		} 
+
+		urlParts = url.split('/');
+		startPos = urlParts.indexOf('about');
+
+		if (startPos > -1 && urlParts.length > startPos) {
+			for (i = startPos + 1; i < urlParts.length; i++) {
+				result.push(urlParts[i]);
+			} 
+		}
+		return result; 
+	}
+
 	function getMediaRecords (cb) {
 		var request = new XMLHttpRequest(),
 		endpoint = getBaseDomain() + 'dump_json.php',
-		tags = getURLParameter('tags'); 
+		tags = getTagsInURL();
 
 		if (tags) {
-			endpoint+= '?tags=' + tags;
+			endpoint+= '?tags=' + tags.join(',');
 		}
 
 		request.open('GET', endpoint, true);

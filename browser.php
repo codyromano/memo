@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Memos</title>
-	<link rel="stylesheet" href="memos.css" type="text/css"/>
+	<link rel="stylesheet" href="/memo/memos.css" type="text/css"/>
 </head>
 <body>
 
@@ -11,15 +11,15 @@
 	<h2></h2>
 </header>
 
-<audio id="featuredAudio" controls autoplay></audio>
+<audio id="featuredAudio" volume="0" controls autoplay></audio>
 <div id="loader"></div>
 <div id="status"></div>
 
-<img id="featuredImage"/>
+<div id="featuredImage"></div>
 
-<script src="javascript/modules/Dispatcher.js"></script>
-<script src="javascript/modules/ImageGallery.js"></script>
-<script src="index.js"></script>
+<script src="/memo/javascript/modules/Dispatcher.js"></script>
+<script src="/memo/javascript/modules/ImageGallery.js"></script>
+<script src="/memo/javascript/index.js"></script>
 
 </body>
 </html>

@@ -92,21 +92,16 @@ header * {
 	position: relative;
 	z-index: 2; 
 
-	max-width: 100%; 
-	/*
 	width: 100%; 
 	height: 100%; 
 	background-size: contain;
 	background-position: center; 
 	background-repeat: no-repeat; 
-	*/
 
-	/*
 	opacity: 1; 
 	transition: all ease 2s;
 	-webkit-transition: all ease 2s;
 	-moz-transition: all ease 2s;
-	*/
 	margin: 0 auto;
 }
 

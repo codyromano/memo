@@ -81,8 +81,6 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 		 		form.fadeIn('slow'); 
 		 	}
 		}
-
-
 	});
 	</script>
 </body>
