@@ -26,8 +26,7 @@
 	header2 = el('h2');
 	status = el('#status');
 	loader = el('#loader');
-	featuredAudio = el('#featuredAudio');
-	featuredAudio.volume = 0; 
+	featuredAudio = el('#featuredAudio'); 
 
 	function init () {
 		getMediaRecords(function (media) {
