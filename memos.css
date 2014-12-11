@@ -31,9 +31,9 @@ header {
 
 #loader, #status {
 	opacity: 1; 
-	transition: all ease 1s;
-	-webkit-transition: all ease 1s;
-	-moz-transition: all ease 1s;
+	transition: all ease .5s;
+	-webkit-transition: all ease .5s;
+	-moz-transition: all ease .5s;
 }
 
 #loader.hidden, #status.hidden {

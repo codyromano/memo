@@ -16,7 +16,7 @@
 	// Start a slideshow of related images
 	imageGallery = new ImageGallery(); 
 	imageGallery.el = el('#featuredImage'); 
-	imageGallery.durationPerImage = 2000; 
+	imageGallery.durationPerImage = 8000; 
 
 	// Extract just the date from the "humanTime" string
 	// in the server's response 
