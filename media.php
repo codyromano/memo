@@ -16,6 +16,10 @@ if (isset($_GET['fileName'])) {
 			case 'jpeg': $contentType = 'image/jpeg'; break; 
 		}
 
+		header('Pragma: public');
+		header('Cache-Control: max-age=86400');
+		header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
+
 		if (!empty($contentType)) {
 			header('Content-Type: ' . $contentType);
 		} 

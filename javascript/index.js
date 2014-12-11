@@ -16,7 +16,7 @@
 	// Start a slideshow of related images
 	imageGallery = new ImageGallery(); 
 	imageGallery.el = el('#featuredImage'); 
-	imageGallery.durationPerImage = 2000; 
+	imageGallery.durationPerImage = 6000; 
 
 	// Extract just the date from the "humanTime" string
 	// in the server's response 
@@ -84,7 +84,7 @@
 
 	function getBaseDomain () {
 		return document.domain === 'codyromano.com' ? 
-			'' : 'http://www.codyromano.com/memo/';
+			'/memo/' : 'http://www.codyromano.com/memo/';
 	}
 
 	function getMediaURIPrefix () {
