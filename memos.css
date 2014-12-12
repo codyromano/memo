@@ -108,3 +108,9 @@ header * {
 #featuredImage.loaded {
 	opacity: 1; 
 }
+
+@media (max-width: 60rem) {
+	header {
+		display: none;
+	}
+}
