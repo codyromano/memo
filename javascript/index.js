@@ -84,7 +84,7 @@
 
 	function getBaseDomain () {
 		return document.domain === 'codyromano.com' ? 
-			'' : 'http://www.codyromano.com/memo/';
+			'/memo/' : 'http://www.codyromano.com/memo/';
 	}
 
 	function getMediaURIPrefix () {
