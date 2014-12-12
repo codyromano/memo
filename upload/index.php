@@ -1,5 +1,5 @@
 <?php
-require 'stdlib.php';
+require '../stdlib.php';
 
 session_start();
 
