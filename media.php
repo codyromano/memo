@@ -14,6 +14,7 @@ if (isset($_GET['fileName'])) {
 			case 'm4a': $contentType = 'audio/mp4'; break; 
 			case 'jpg': $contentType = 'image/jpeg'; break;
 			case 'jpeg': $contentType = 'image/jpeg'; break; 
+			case 'png': $contentType = 'image/png'; break; 
 		}
 
 		header('Pragma: public');
