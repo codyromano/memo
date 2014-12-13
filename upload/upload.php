@@ -83,24 +83,18 @@ try {
 
 	// TODO: Add thumbnail support for other file formats 
 	if ($extension === 'jpg' || $extension === 'jpeg') {
-
 		$maxImageWidth = 1000; 
-
 		$sourceFile = DIR_MEMO_AUDIO . $fileName; 
-
 		list($width, $height, $type, $attr) = getimagesize($sourceFile);
 
 		if ($width > $maxImageWidth) {
-			$thumbFile = DIR_MEMO_AUDIO . 'temp_thumb_' . $fileName; 
+			$thumbFile = DIR_MEMO_AUDIO . FILE_COMPRESSED_PREFIX . $fileName; 
 			$thumbWidth = $maxImageWidth;
 			//$thumbWidth = 500; 
 			$thumbHeight = $height;
 			$quality = 85; 
 
 			makeThumbnail($sourceFile, $thumbFile, $thumbWidth, $thumbHeight, $quality); 
-
-			unlink($sourceFile); 
-			rename($thumbFile, $sourceFile); 
 		}
 	}
 

@@ -52,7 +52,6 @@ function parseFileName ($fileName) {
 
 $result = array(); 
 $tags = getTagFiles();
-
 $tagsHashTable = array(); 
 
 
@@ -92,9 +91,6 @@ foreach ($media as $mediaFileName) {
 	foreach ($urlTags as $urlTag) {
 		if (!in_array($urlTag, $mediaRecord['tags'])) {
 			$tagsMatch = false;
-			//echo "tag $tag is not in ";
-			//print_r($mediaRecord['tags']);
-			//echo "<hr/>";
 		}
 	}
 
@@ -103,6 +99,19 @@ foreach ($media as $mediaFileName) {
 	}
 }
 
+// When the quality flag is provided and set to compressed, try to retrieve
+// compressed versions of different images 
+$getCompressed = isset($_GET['quality']) && $_GET['quality'] === 'compressed';
+
+if ($getCompressed) {
+	foreach ($result as $key => $mediaItem) {
+		$compressedFilename = DIR_MEMO_AUDIO . FILE_COMPRESSED_PREFIX . $mediaItem['basename'];
+
+		if (file_exists($compressedFilename)) {
+			$result[$key]['basename'] = FILE_COMPRESSED_PREFIX . $mediaItem['basename'];
+		}
+	}
+}
 
 echo json_encode($result); 
 ?>

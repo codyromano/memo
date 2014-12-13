@@ -14,6 +14,19 @@ header {
 	z-index: 3; 
 }
 
+a {
+	cursor: pointer; 
+}
+
+li {
+	display: block; 
+}
+
+ul, li, a {
+	margin: 0; 
+	padding: 0; 
+}
+
 #loader {
 	position: fixed;
 	top: 50%;
@@ -29,6 +42,43 @@ header {
 	opacity: 0; 
 }
 
+#qualitySetting {
+	position: absolute; 
+	z-index: 5; 
+	top: 10%; 
+	left: 2.5%; 
+	text-align: center;
+	width: 100%; 
+}
+
+#qualitySetting > div {
+	display: inline-block;
+	width: 100%; 
+	max-width: 35rem;
+	text-align: center; 
+	color: #fff;
+}
+
+#qualitySetting li {
+	margin-bottom: 2.5rem;
+}
+
+#qualitySetting > div > a {
+	border: solid #ccc .15rem;
+	padding: .25rem; 
+	display: block; 
+	height: 20rem;
+}
+
+#qualitySetting h3 {
+	margin-bottom: 3rem;
+}
+
+#qualitySetting > div p {
+	font-size: .8em;
+	color: #ccc;
+}
+
 #loader, #status {
 	opacity: 1; 
 	transition: all ease .5s;
@@ -36,7 +86,7 @@ header {
 	-moz-transition: all ease .5s;
 }
 
-#loader.hidden, #status.hidden {
+#loader.hidden, #status.hidden, .hidden {
 	opacity: 0; 
 }
 
