@@ -13,6 +13,8 @@ if (PRODUCTION_ENV) {
 	define('DIR_MEMO_TAGS', $DOCROOT . '/test-memo-tags/'); 
 }
 
+define('FILE_COMPRESSED_PREFIX', 'comp_'); 
+
 define('FILENAME_SEPARATOR', '_'); 
 define('TAG_SEPARATOR', ','); 
 
