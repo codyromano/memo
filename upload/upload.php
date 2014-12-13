@@ -1,5 +1,5 @@
 <?php
-require 'stdlib.php';
+require '../stdlib.php';
 
 define('FILENAME_SEPARATOR', '_'); 
 session_start();
@@ -24,6 +24,40 @@ function get_client_ip() {
     return $ipaddress;
 }
 
+/**
+* Copied from http://stackoverflow.com/questions/12661/efficient-jpeg-image-resizing-in-php 
+*/
+function makeThumbnail ($sourcefile, $endfile, $thumbwidth, $thumbheight, $quality) {
+	// Load image and get image size.
+	$img = imagecreatefromjpeg($sourcefile);
+	$width = imagesx( $img );
+	$height = imagesy( $img );
+
+	if ($width > $height) {
+	    $newwidth = $thumbwidth;
+	    $divisor = $width / $thumbwidth;
+	    $newheight = floor( $height / $divisor);
+	}
+	else {
+	    $newheight = $thumbheight;
+	    $divisor = $height / $thumbheight;
+	    $newwidth = floor( $width / $divisor );
+	}
+
+	// Create a new temporary image.
+	$tmpimg = imagecreatetruecolor( $newwidth, $newheight );
+
+	// Copy and resize old image into new image.
+	imagecopyresampled( $tmpimg, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height );
+
+	// Save thumbnail into a file.
+	imagejpeg( $tmpimg, $endfile, $quality);
+
+	// release the memory
+	imagedestroy($tmpimg);
+	imagedestroy($img);
+}
+
 try {
 
 	if (!isset($_FILES) || !isset($_FILES['memo'])) {
@@ -44,8 +78,34 @@ try {
 	$fileName.= get_client_ip() . FILENAME_SEPARATOR . time() . ".{$extension}";
 
 	if (!move_uploaded_file($file['tmp_name'], DIR_MEMO_AUDIO . $fileName)) {
-		throw new Exception("Cannot move audio");
+		throw new Exception("Cannot move audio or photo");
 	}
+
+	// TODO: Add thumbnail support for other file formats 
+	if ($extension === 'jpg' || $extension === 'jpeg') {
+
+		$maxImageWidth = 1000; 
+
+		$sourceFile = DIR_MEMO_AUDIO . $fileName; 
+
+		list($width, $height, $type, $attr) = getimagesize($sourceFile);
+
+		if ($width > $maxImageWidth) {
+			$thumbFile = DIR_MEMO_AUDIO . 'temp_thumb_' . $fileName; 
+			$thumbWidth = $maxImageWidth;
+			//$thumbWidth = 500; 
+			$thumbHeight = $height;
+			$quality = 85; 
+
+			makeThumbnail($sourceFile, $thumbFile, $thumbWidth, $thumbHeight, $quality); 
+
+			unlink($sourceFile); 
+			rename($thumbFile, $sourceFile); 
+		}
+	}
+
+	$mediaFileName = $fileName;
+	$mediaFileExt = $extension;
 
 	if (!empty($_POST['tags'])) {
 		if (!is_dir(DIR_MEMO_TAGS) && !mkdir(DIR_MEMO_TAGS)) {
@@ -60,10 +120,10 @@ try {
 		fclose($fh); 
 	}
 
-	echo "Upload successful";
+	echo "Finished uploading <a href='../media.php?fileName=" . $mediaFileName . "'>your .$mediaFileExt file</a> at " . date("g:i:s a") . "</a>";
 
 } catch (Exception $e) {
-	echo "Error: " . $e->getMessage();
+	echo PRODUCTION_ENV ? "Whoops. An error occurred. Please give it another go." : $e->getMessage();
 }
 
 ?>
