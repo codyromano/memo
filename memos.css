@@ -27,6 +27,49 @@ ul, li, a, p {
 	padding: 0; 
 }
 
+#audioProgressIndicator {
+	position: absolute;
+	top: 2%; 
+	right: 2%;
+	display: block; 
+	z-index: 5; 
+	border-radius: .25rem;
+	background: rgba(0,0,0,0,1);
+	height: 1.25;
+	width: 9rem;
+}
+
+.loadProgressWrapper {
+	position: relative; 
+	border: solid #fff .15rem;
+	border-radius: .4rem; 
+	width: 9rem; 
+	padding: 0;
+	height: 1.25rem; 
+}
+
+.loadProgressWrapper p {
+	margin: 0;
+	padding: 0;
+	position: absolute; 
+	display: block;
+	width: 100%; 
+	text-align: center; 
+	font-size: .8rem; 
+}
+
+.loadProgressInner {
+	display: inline-block;
+	width: 0%;  
+	height: 1.25rem; 
+	background: #fff; 
+	position: absolute; 
+	top: 0;
+	left: 0;
+	transition: all ease .5s;
+}
+
+
 #loader {
 	position: fixed;
 	top: 50%;
@@ -112,7 +155,7 @@ h1, #status {
 
 h1 {
 	position: relative; 
-	top: 10%;
+	top: 2%;
 	left: 5%;
 	font-size: 1.15rem;
 }

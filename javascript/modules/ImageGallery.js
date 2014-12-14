@@ -92,7 +92,6 @@
 	};
 
 	ImageGallery.prototype.showImage = function (src, callback) {
-		console.log('showing ', src);
 		callback = typeof callback === 'function' ? callback : function () {};
 		this.el.style['background-image'] = "url('" + src + "')";
 		callback();

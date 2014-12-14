@@ -13,7 +13,13 @@
     <h2></h2>
   </header>
 
-  <audio id="featuredAudio" class="hidden" volume="0" controls autoplay></audio>
+  <div id="audioProgressIndicator">
+    <div class="loadProgressWrapper">
+      <p></p>
+      <div class="loadProgressInner"></div>
+    </div>
+  </div>
+
   <div id="loader" class="hidden"></div>
   <div id="featuredImage"></div>
 
@@ -38,9 +44,12 @@
     </div>
   </div>
 
-  <script src="/memo/javascript/modules/User.js"></script>
-  <script src="/memo/javascript/modules/Loader.js"></script>
+  <!-- Paths must be absolute because of Apache rewrite --> 
   <script src="/memo/javascript/modules/Dispatcher.js"></script>
+  <script src="/memo/javascript/modules/User.js"></script>
+  <script src="/memo/javascript/modules/AudioProgressIndicator.js"></script>
+  <script src="/memo/javascript/modules/AudioPlayer.js"></script>
+  <script src="/memo/javascript/modules/Loader.js"></script>
   <script src="/memo/javascript/modules/ImageGallery.js"></script>
   <script src="/memo/javascript/index.js"></script>
 
