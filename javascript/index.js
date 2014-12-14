@@ -119,8 +119,7 @@
 	}
 
 	function getBaseDomain () {
-		return document.domain === 'codyromano.com' ? 
-			'/memo/' : 'http://www.codyromano.com/memo/';
+    return '/memo/';
 	}
 
 	function getMediaURIPrefix () {
@@ -237,7 +236,7 @@
 
 	function isAudio (mediaItem) {
 		return mediaItem.extension && 
-			['m4a','3pg'].indexOf(mediaItem.extension.toLowerCase()) > -1; 
+			['m4a','3pg','mp3'].indexOf(mediaItem.extension.toLowerCase()) > -1; 
 	}
 
 	function isImage (mediaItem) {

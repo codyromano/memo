@@ -15,7 +15,7 @@ if (PRODUCTION_ENV) {
 
 define('FILE_COMPRESSED_PREFIX', 'comp_'); 
 
-define('FILENAME_SEPARATOR', '_'); 
+define('MEMO_FILENAME_SEPARATOR', '_'); 
 define('TAG_SEPARATOR', ','); 
 
 ?>
