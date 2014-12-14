@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Noto+Sans);
 
 html, body {
-	background: #000;
+	background: #122;
 	height: 100%; 
 	color: #fff;
 	font-family: 'Noto Sans', sans-serif;
@@ -22,7 +22,7 @@ li {
 	display: block; 
 }
 
-ul, li, a {
+ul, li, a, p {
 	margin: 0; 
 	padding: 0; 
 }
@@ -42,11 +42,15 @@ ul, li, a {
 	opacity: 0; 
 }
 
+#qualitySetting.hidden {
+  display: none; 
+}
+
 #qualitySetting {
 	position: absolute; 
 	z-index: 5; 
 	top: 10%; 
-	left: 2.5%; 
+	left: 0%; 
 	text-align: center;
 	width: 100%; 
 }
@@ -63,19 +67,29 @@ ul, li, a {
 	margin-bottom: 2.5rem;
 }
 
-#qualitySetting > div > a {
-	border: solid #ccc .15rem;
-	padding: .25rem; 
-	display: block; 
-	height: 20rem;
+#qualitySetting a {
+  border: solid #999 .15rem;
+  padding: 1.5em .5em; 
+  display: block; 
+  font-size: 1rem;
+  background: #111; 
+  border-radius: 1rem;
+  margin: 1.5% 7.5%;
 }
+
+#qualitySetting strong {
+  font-size: 1.5em;
+  display: inline-block;
+  margin-bottom: .5em;
+}
+
 
 #qualitySetting h3 {
 	margin-bottom: 3rem;
 }
 
 #qualitySetting > div p {
-	font-size: .8em;
+	font-size: 1.25em;
 	color: #ccc;
 }
 

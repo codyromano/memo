@@ -15,24 +15,23 @@
 
   <audio id="featuredAudio" class="hidden" volume="0" controls autoplay></audio>
   <div id="loader" class="hidden"></div>
-  <div id="status"></div>
   <div id="featuredImage"></div>
 
   <div id="qualitySetting" class="hidden">
     <div>
-      <h3>Choose Image Quality:</h3>
+      <h3>Choose Quality</h3>
       <ul>
         <li>
           <a data-image-quality-setting="compressed">
             <strong>Medium</strong>
-            <p>Recommended for mobile data</p>
+            <p>For devices without Wi-Fi</p>
           </a>
         </li>
 
         <li>
           <a data-image-quality-setting="full">
-            <strong>Full</strong>
-            <p>Recommended for wi-fi</p>
+            <strong>High</strong>
+            <p>For devices with fast Wi-Fi</p>
           </a>
         </li>
       </ul>
