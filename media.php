@@ -11,6 +11,7 @@ if (isset($_GET['fileName'])) {
 		$contentType = '';
 
 		switch ($ext) {
+                        case 'mp3': $contentType = 'audio/mp3'; break;
 			case 'm4a': $contentType = 'audio/mp4'; break; 
 			case 'jpg': $contentType = 'image/jpeg'; break;
 			case 'jpeg': $contentType = 'image/jpeg'; break; 
