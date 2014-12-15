@@ -27,6 +27,57 @@ ul, li, a, p {
 	padding: 0; 
 }
 
+#audioProgressIndicator {
+	position: absolute;
+	top: 2%; 
+	right: 2%;
+	display: block; 
+	z-index: 5; 
+	height: 1.25;
+	width: 9rem;
+}
+
+.loadProgressWrapper {
+	position: relative; 
+	width: 9rem; 
+	padding: 0;
+	height: 1.25rem; 
+}
+
+.loadProgressWrapper p {
+	margin: 0;
+	padding: 0;
+	position: fixed; 
+	top: 0;
+	right: 0; 
+
+	display: block; 
+	text-align: center; 
+	font-size: .8rem; 
+	background: rgba(0,0,0,.5); 
+	padding: .5rem 2.5rem; 
+	border-radius: .5rem; 
+}
+
+.loadProgressInner {
+	display: inline-block;
+	width: 0%;  
+	height: 1.25rem; 
+	background: #fff; 
+	position: absolute; 
+	top: 0;
+	left: 0;
+	transition: all ease .5s;
+}
+
+#audioProgressIndicator audio {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 15rem;
+	min-width: 0px; 
+}
+
 #loader {
 	position: fixed;
 	top: 50%;
@@ -38,6 +89,8 @@ ul, li, a, p {
 	background-repeat: no-repeat;
 	width: 3.5rem;
 	height: 3.5rem;
+	margin-left: -1.75rem;
+	margin-top: -1.75rem;
 	opacity: 1;
 	opacity: 0; 
 }
@@ -112,7 +165,7 @@ h1, #status {
 
 h1 {
 	position: relative; 
-	top: 10%;
+	top: 2%;
 	left: 5%;
 	font-size: 1.15rem;
 }
@@ -176,5 +229,8 @@ header * {
 @media (max-width: 60rem) {
 	header {
 		display: none;
+	}
+	#audioProgressIndicator audio {
+		width: 10rem; 
 	}
 }
