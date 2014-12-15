@@ -1,9 +1,18 @@
 (function (exports, Dispatcher) {
+	"use strict";
 
 	function AudioPlayer () {
 		var _AudioPlayer = this; 
 
 		this.el = document.createElement('audio'); 
+		this.el.setAttribute('autoplay', true);
+		this.el.setAttribute('preload', 'auto'); 
+		this.el.setAttribute('controls', true); 
+
+		window.setInterval(function () {
+			console.log(_AudioPlayer.el.networkState); 
+		}, 2000); 
+
 		this.browserSupport = this.el.canPlayType('audio/mpeg') !== "";
 
 		if (!this.browserSupport) {
@@ -18,8 +27,7 @@
 	}
 
 	AudioPlayer.prototype.onCanPlay = function () {
-		Dispatcher.broadcast('audioCanPlay'); 
-		this.el.play();  
+		Dispatcher.broadcast('audioCanPlay', this.el);  
 	};
 
 	AudioPlayer.prototype.onLoadStarted = function () {
@@ -27,8 +35,8 @@
 	};
 
 	AudioPlayer.prototype.onLoadProgress = function () {
-  	var progress = parseInt(((this.el.currentTime / this.el.duration) * 100), 10);
-  	Dispatcher.broadcast('audioLoadProgress', progress); 
+  	//var progress = parseInt(((this.el.currentTime / this.el.duration) * 100), 10);
+  	//Dispatcher.broadcast('audioLoadProgress', progress); 
 	};
 
 	AudioPlayer.prototype.onAudioError = function (err) {
@@ -41,7 +49,8 @@
 
 	AudioPlayer.prototype.loadAudio = function (src) {
 		if (!this.browserSupport) { return false; }
-		this.el.src = src; 
+		this.el.setAttribute('src', src); 
+		this.el.play(); 
 	};
 
 	exports.AudioPlayer = AudioPlayer; 

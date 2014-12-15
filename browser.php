@@ -13,7 +13,7 @@
     <h2></h2>
   </header>
 
-  <div id="audioProgressIndicator">
+  <div id="audioProgressIndicator" class="hidden">
     <div class="loadProgressWrapper">
       <p></p>
       <div class="loadProgressInner"></div>

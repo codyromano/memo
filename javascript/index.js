@@ -43,9 +43,10 @@
   function startStory () {
 
     var apStatus = el('.loadProgressWrapper p'),
-    apBar = document.querySelectorAll('.loadProgressInner')[0]; 
+    apBar = document.querySelectorAll('.loadProgressInner')[0],
+    apWrapper = el('#audioProgressIndicator');
 
-    AudioProgressIndicator.init(apStatus, apBar);
+    AudioProgressIndicator.init(apStatus, apBar, apWrapper);
 
     Loader.show(); 
 
