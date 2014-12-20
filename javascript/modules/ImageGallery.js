@@ -94,6 +94,7 @@
 	ImageGallery.prototype.showImage = function (src, callback) {
 		callback = typeof callback === 'function' ? callback : function () {};
 		this.el.style['background-image'] = "url('" + src + "')";
+		Dispatcher.broadcast('showingImage', src); 
 		callback();
 	};
 

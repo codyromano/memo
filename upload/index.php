@@ -45,6 +45,7 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 
 	<div id="progress"></div>
 
+
 </main>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
