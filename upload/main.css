@@ -4,6 +4,25 @@ body {
 	font-family: Arial;
 }
 
+.thumbnailPreview {
+	margin: 1rem auto; 
+	display: block;
+	width: 95%;
+	height: 10rem; 
+	max-width: 30rem;
+	background-size: contain; 
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.warning {
+	padding: 1rem 0;
+}
+
+#deletePage h1 {
+	font-size: 1.25rem;
+}
+
 main {
 	max-width: 40rem;
 	width: 100%; 
@@ -101,4 +120,12 @@ progress {
 	width: 100%; 
 	height: 100%;
 	filter: alpha(opacity=0); 
+}
+
+.actionBtnInline {
+	width: initial; 
+}
+
+.destructiveBtn {
+	background: crimson;
 }

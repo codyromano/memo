@@ -20,6 +20,10 @@ html, body {
 	cursor: pointer; 
 }
 
+#settings[href="#"] {
+	opacity: 0; 
+}
+
 header {
 	position: fixed; 
 	top: 0;
