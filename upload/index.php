@@ -3,6 +3,14 @@ require '../stdlib.php';
 
 session_start();
 
+if (isset($_GET['autoTag'])) {
+	$_SESSION['autoTag'] = htmlentities($_GET['autoTag']);
+}
+
+if (isset($_GET['unsetAutoTag'], $_SESSION['autoTag'])) {
+	unset($_SESSION['autoTag']); 
+}
+
 function getTotalFiles ($dir) {
 	$dirContents = scandir($dir); 
 	return count($dirContents) - 2; // Don't count the '.' or '..'
@@ -55,7 +63,7 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 	function simpleBasename (filePath) {
 		var lastSlash = filePath.lastIndexOf('/'); 
 		if (lastSlash === -1 && (lastSlash = filePath.lastIndexOf('\\')) === -1) {
-			console.error("File path doesn't contain slash"); 
+			console.error("Invalid base name"); 
 			return false; 
 		}
 		return filePath.substring(lastSlash + 1); 
@@ -63,6 +71,9 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 
 	$(document).ready(function() { 
 		"use strict";
+
+		// Warning: this is some ugly spaghetti code; 
+		// just need to get this out for a personal project
 
 		var progressBar = $('progress'),
 		form = $('#uploadMemo'),
@@ -74,10 +85,12 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 		$success = $(".success"),
 		$cont = $("#continue"),
 		$output = $("#output"),
-		fileNameText; 
+		fileNameText,
+
+		// Terrible, I know
+		autoTag = "<?php if (isset($_SESSION['autoTag'])) { echo $_SESSION['autoTag'];} ?>"; 
 
 		$cont.click(function () {
-			//debugger; 
 			$output.text(''); 
 			$success.fadeOut('fast');
 			$tagsWrapper.fadeOut('fast'); 
@@ -85,12 +98,6 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 			$fileName.parent().removeClass('fileSelected');  
 			$submitBtn.fadeOut('fast'); 
 
-			/*
-			window.sazetTimeout(function () {
-				form.fadeIn('slow'); 
-				$fileUpload.replaceWith( $fileUpload = $fileUpload.clone( true ) );
-			}, 2500); 
-			*/
 			window.setTimeout(function () { 
 				form.fadeIn('slow');
 			}, 800);  
@@ -106,9 +113,15 @@ $totalTags = getTotalFiles(DIR_MEMO_TAGS);
 
 			if (typeof basename === 'string' && basename.length > 0) {
 				//$fileName.text(basename).parent().addClass('fileSelected');
-				$fileName.parent().addClass('fileSelected');  
-				$tagsWrapper.fadeIn('slow');
-				$tagInput.addClass('focusTags').focus(); 
+				$fileName.parent().addClass('fileSelected');
+
+				if (autoTag.length > 0) {
+					$tagInput.val(autoTag); 
+					form.submit(); 
+				} else {
+					$tagsWrapper.fadeIn('slow');
+					$tagInput.addClass('focusTags').focus();
+				} 
 			}
 		});
 

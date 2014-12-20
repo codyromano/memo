@@ -81,6 +81,9 @@ progress {
 	color: green;
 	line-height: 500%;
 	margin-bottom: 1.5rem; 
+	opacity: 0;
+	height: 1rem;
+	overflow: hidden;
 }
 
 .uploadButtonWrapper {
