@@ -75,6 +75,8 @@ try {
     $recordID = uniqid(); 
 
     $file = $_FILES['memo'];
+    $originalNameSafe = htmlentities($file['name']); 
+
     $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     $fileName = "memo_" . get_client_ip() . "_" . time() . ".{$extension}";
 
@@ -144,8 +146,8 @@ try {
         fwrite($fh, htmlentities(strip_tags($_POST['tags']))); 
         fclose($fh); 
     }
-
-    echo "Finished uploading <a href='../media.php?fileName=" . $mediaFileName . "'>your .$mediaFileExt file</a> at " . date("g:i:s a") . "</a>";
+    echo "<a target='_blank' href='../media.php?fileName=" . $mediaFileName . "'>Your file</a> was uploaded.";
+    //echo "Uploaded <a target='_blank' href='../media.php?fileName=" . $mediaFileName . "'>$originalNameSafe</a> at " . date("g:i:s a") . "</a>";
 
 } catch (Exception $e) {
     echo PRODUCTION_ENV ? "Whoops. An error occurred. Please give it another go." : $e->getMessage();
