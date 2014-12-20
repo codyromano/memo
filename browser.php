@@ -54,6 +54,8 @@
     </div>
   </div>
 
+    <a href="#" id="settings">Delete Photo</a>
+
   <!-- Paths must be absolute because of Apache rewrite --> 
   <script src="/memo/javascript/modules/Dispatcher.js"></script>
   <script src="/memo/javascript/modules/User.js"></script>

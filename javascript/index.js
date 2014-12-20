@@ -51,9 +51,10 @@
     Loader.show(); 
 
     getMediaRecords(function (media) {
-      var audio = media.filter(isAudio),
+      var audio = media.filter(isAudio),  
       images = media.filter(isImage);
-
+      var settingsLink = el('#settings'); 
+      console.log(settingsLink); 
       Dispatcher.listen('showedFirstImage', Loader.hide); 
 
       function goToNextAudioClip (error) {
@@ -63,6 +64,20 @@
         audio.shift();
         playSlideshow(audio, images);
       }
+
+      Dispatcher.listen('showingImage', function (src) { 
+        var basename, deleteLink, lastSlash = src.lastIndexOf('/'); 
+
+        if (lastSlash === -1 && (lastSlash = src.lastIndexOf('\\')) === -1) {
+          console.error('Malformed src; cannot update settings link'); 
+          return false; 
+        }
+        basename = src.substring(lastSlash + 1);
+
+        deleteLink = '/memo/manager.php?fileName=' + basename + '&ref=' + window.location.href;
+
+        settingsLink.setAttribute('href', deleteLink);
+      });
 
       Dispatcher.listen('audioPlaybackError', goToNextAudioClip); 
       Dispatcher.listen('audioEnded', goToNextAudioClip); 
@@ -105,8 +120,11 @@
 	} 
 
   function getBaseDomain () {
+    /*
     return document.domain === 'codyromano.com' ? 
       '/memo/' : 'http://www.codyromano.com/memo/';
+    */
+    return '/memo/'; 
   }
 
 	function playSlideshow (audioFiles, imageFiles) {
