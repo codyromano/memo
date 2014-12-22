@@ -9,10 +9,6 @@
 		this.el.setAttribute('preload', 'auto'); 
 		this.el.setAttribute('controls', true); 
 
-		window.setInterval(function () {
-			console.log(_AudioPlayer.el.networkState); 
-		}, 2000); 
-
 		this.browserSupport = this.el.canPlayType('audio/mpeg') !== "";
 
 		if (!this.browserSupport) {
