@@ -40,6 +40,18 @@
     return check;
   }
 
+  function isObj () {
+    var allObjects = true;
+
+    Array.prototype.slice.call(arguments).forEach(function (arg) {
+      if (typeof arg !== 'object') {
+        allObjects = false; 
+      }
+    });
+
+    return allObjects; 
+  }
+
   function startStory () {
 
     var apStatus = el('.loadProgressWrapper p'),
@@ -51,10 +63,13 @@
     Loader.show(); 
 
     getMediaRecords(function (media) {
-      var audio = media.filter(isAudio),  
-      images = media.filter(isImage);
-      var settingsLink = el('#settings'); 
-      console.log(settingsLink); 
+      var audio = media
+        .filter(isAudio)
+        .sort(sortMediaByTime);
+
+      var images = media.filter(isImage),
+      settingsLink = el('#settings'); 
+ 
       Dispatcher.listen('showedFirstImage', Loader.hide); 
 
       function goToNextAudioClip (error) {
@@ -72,8 +87,8 @@
           console.error('Malformed src; cannot update settings link'); 
           return false; 
         }
-        basename = src.substring(lastSlash + 1);
 
+        basename = src.substring(lastSlash + 1);
         deleteLink = '/memo/manager.php?fileName=' + basename + '&ref=' + window.location.href;
 
         settingsLink.setAttribute('href', deleteLink);
@@ -82,7 +97,8 @@
       Dispatcher.listen('audioPlaybackError', goToNextAudioClip); 
       Dispatcher.listen('audioEnded', goToNextAudioClip); 
       Dispatcher.listen('audioFatalError', function (errMsg) {
-        alert(errMsg); 
+        alert("Sorry, I can't play audio content. This is most likely " +
+          "because your browser doesn't support it."); 
       });
 
       playSlideshow(audio, images); 
@@ -154,6 +170,14 @@
     });
 
     imageGallery.startSlideshow();
+  }
+
+  function sortMediaByTime (a, b) {
+    var diff = a.timestamp - b.timestamp; 
+
+    if (diff > 0) { return -1; }
+    if (diff < 0) { return 1; }
+    if (diff === 0) { return 0; }
   }
 
   // Find all the images that share tags with a given 
