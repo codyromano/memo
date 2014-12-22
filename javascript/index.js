@@ -136,11 +136,7 @@
 	} 
 
   function getBaseDomain () {
-    /*
-    return document.domain === 'codyromano.com' ? 
-      '/memo/' : 'http://www.codyromano.com/memo/';
-    */
-    return '/memo/'; 
+    return 'http://www.codyromano.com/memo/';
   }
 
 	function playSlideshow (audioFiles, imageFiles) {
@@ -174,11 +170,12 @@
 
     imageGallery.resetImages();
 
-    relatedImages.forEach(function (image) {
-      imageGallery.addImage(mediaURIPrefix + image.basename); 
-    });
-
+    imageGallery.preloadAllImages(relatedImages.map(getImageSrc)); 
     imageGallery.startSlideshow();
+  }
+
+  function getImageSrc (image) {
+    return mediaURIPrefix + image.basename; 
   }
 
   function sortMediaByTime (a, b) {
@@ -198,8 +195,8 @@
       var imageADist = Math.abs(imageA.timestamp -  audioFile.timestamp),
       imageBDist = Math.abs(imageB.timestamp - audioFile.timestamp); 
 
-      if (imageADist > imageBDist) { return -1; }
-      if (imageADist < imageBDist) { return 1; }
+      if (imageADist < imageBDist) { return -1; }
+      if (imageADist > imageBDist) { return 1; }
       if (imageADist === imageBDist) { return 0; }
     });
   }

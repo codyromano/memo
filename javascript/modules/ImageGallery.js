@@ -12,9 +12,24 @@
 		};
 	}
 
+	ImageGallery.prototype.preloadAllImages = function (images) {
+		var currentImage, _self = this; 
+
+		if (images.length) {
+			currentImage = images.shift(); 
+			this.preloadImage(currentImage, function () {
+				_self.images.push(currentImage); 
+				_self.preloadAllImages(images); 
+			}); 
+		}
+	};
+
 	ImageGallery.prototype.preloadImage = function (src, callback) {
 		var image = new Image(); 
-		image.onload = callback; 
+		image.onload = callback.bind(this); 
+		image.onerror = function () {
+			console.error('Error loading ' + src + ': ', arguments); 
+		};
 		image.src = src; 
 	};
 
