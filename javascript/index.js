@@ -195,8 +195,8 @@
       var imageADist = Math.abs(imageA.timestamp -  audioFile.timestamp),
       imageBDist = Math.abs(imageB.timestamp - audioFile.timestamp); 
 
-      if (imageADist > imageBDist) { return -1; }
-      if (imageADist < imageBDist) { return 1; }
+      if (imageADist < imageBDist) { return -1; }
+      if (imageADist > imageBDist) { return 1; }
       if (imageADist === imageBDist) { return 0; }
     });
   }
