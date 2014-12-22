@@ -1,0 +1,9 @@
+<?php
+
+define('ADMIN_PASSWORD_ALGO', 'SHA1'); 
+define('ADMIN_PASSWORD_HASH', 'hash of your password using your chosen algorithm'); 
+define('ADMIN_PASSWORD_SALT', 'long string of random characters'); 
+
+// E.g. To find your hash: 
+// echo hash(ADMIN_PASSWORD_ALGO, "yourpassword" . ADMIN_PASSWORD_SALT)
+?>
