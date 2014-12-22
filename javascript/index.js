@@ -163,6 +163,8 @@
 
     sharesTagFilter = hasAtLeastOneTag.bind(null, currentAudio.tags);
     relatedImages = imageFiles.filter(sharesTagFilter);
+    relatedImages = sortRelatedImagesByTime(currentAudio, relatedImages); 
+
     imageGallery.resetImages();
 
     relatedImages.forEach(function (image) {
@@ -184,17 +186,15 @@
   // audio file, assigning priority to those that occurred
   // in close proximity to the audio
   function sortRelatedImagesByTime (audioFile, imagesWithSharedTags) {
-    var sortedByTimeDiff = {}, result = [];
+    return imagesWithSharedTags.sort(function (imageA, imageB) {
+      // Distance in time between audio and images
+      var imageADist = Math.abs(imageA.timestamp -  audioFile.timestamp),
+      imageBDist = Math.abs(imageB.timestamp - audioFile.timestamp); 
 
-    imagesWithSharedTags.forEach(function (image) {
-      sortedByTimeDiff[Math.abs(image.timestamp - audioFile.timestamp)] = image; 
+      if (imageADist > imageBDist) { return -1; }
+      if (imageADist < imageBDist) { return 1; }
+      if (imageADist === imageBDist) { return 0; }
     });
-
-    Object.keys(sortedByTimeDiff).forEach(function (key) {
-      result.push(sortedByTimeDiff[key]);
-    });
-
-    return result; 
   }
 
   function loadAudio (src, cb) {
