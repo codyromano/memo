@@ -36,7 +36,7 @@ function getTagsByFileName ($tagFileName) {
 
 function parseFileName ($fileName) {
 	$parts = explode(MEMO_FILENAME_SEPARATOR, $fileName);
-	$ext = substr($fileName, -3); 
+	$ext = pathinfo($fileName, PATHINFO_EXTENSION);
 	
 	$timestamp = (int) str_replace($ext, "", $parts[3]);
 
