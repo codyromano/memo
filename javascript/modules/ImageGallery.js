@@ -71,6 +71,8 @@
 		} else if (this.images.length > 1) {
 			this.currentImage = 0; 
 			this.showImage(this.images[0], callShowNextImageAgain); 
+		} else {
+			window.setTimeout(this.showNextImage.bind(this), 1000); 
 		}
 	};
 
