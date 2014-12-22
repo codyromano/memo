@@ -162,7 +162,14 @@
     header1.innerHTML = currentAudio.humanTime; 
 
     sharesTagFilter = hasAtLeastOneTag.bind(null, currentAudio.tags);
+
+    // Only show images that feature the relevant tags
     relatedImages = imageFiles.filter(sharesTagFilter);
+
+    // Only show images that occurred within 20 minutes of the audio
+    relatedImages = imageFiles.filter(
+                      timeDiffLessThan.bind(undefined, 60 * 20, currentAudio));
+
     relatedImages = sortRelatedImagesByTime(currentAudio, relatedImages); 
 
     imageGallery.resetImages();
@@ -195,6 +202,13 @@
       if (imageADist < imageBDist) { return 1; }
       if (imageADist === imageBDist) { return 0; }
     });
+  }
+
+  function timeDiffLessThan (limit, mediaA, mediaB) {
+    if (typeof limit !== 'number' || limit < 0) {
+      throw new Error('Invalid limit'); 
+    }
+    return Math.abs(mediaA.timestamp - mediaB.timestamp) < limit; 
   }
 
   function loadAudio (src, cb) {
