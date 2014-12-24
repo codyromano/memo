@@ -243,9 +243,15 @@
       endpoint+= 'tags=' + tags.join(',') + '&';
     }
 
+    /*
     if (User.settings.imageQuality === 'compressed') {
       endpoint+= 'quality=compressed';
     }
+    */
+    // TODO: Also compress the high-quality version..as of now the "full" quality images
+    // are much too big. Temporarily forcing the compressed mobile images allows for 
+    // acceptable performance. 
+    endpoint+= 'quality=compressed';
 
     request.open('GET', endpoint, true);
     request.onload = function (event) {
